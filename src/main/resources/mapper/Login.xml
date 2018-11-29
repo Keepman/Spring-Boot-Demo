@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http:mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Dao.RoleDao">
+
+    <resultMap id="getRole" type="com.example.demo.domain.Role">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <!--<select id="login" resultType="com.example.demo.domain.Role">-->
+    <!--SELECT * FROM t_login WHERE username = #{username} and password = #{password}-->
+    <!--</select>-->
+
+    <!--<select id="login" resultMap="getRole">-->
+    <!--SELECT * FROM t_login WHERE username = #{username} and password = #{password}-->
+    <!--</select>-->
+
+    <select id="login" resultMap="getRole">
+        SELECT * FROM t_login WHERE username = #{username} and password = #{password}
+    </select>
+
+
+    <select id="Show" resultType="com.example.demo.domain.Mes">
+        SELECT * FROM t_message
+    </select>
+
+    <select id="selectby" resultType="com.example.demo.domain.Mes">
+        SELECT * FROM t_message where id = #{id}
+    </select>
+
+
+    <insert id="save">
+        insert into t_message(name,address,business,level,total,do_business)
+        values(#{name},#{address},#{business},#{level},#{total},#{do_business})
+    </insert>
+
+    <delete id="del">
+        delete from t_message where id = #{id}
+    </delete>
+
+    <delete id="delarray" parameterType="java.util.ArrayList">
+        delete from t_message where id in
+            <foreach item="item" collection="id" separator="," open="(" close=")" index="index">
+                #{item}
+            </foreach>
+    </delete>
+
+    <update id="update">
+        update t_message
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="business != null and business != ''">
+                business = #{business},
+            </if>
+            <if test="level != null and level != ''">
+                level = #{level},
+            </if>
+            <if test="total != null and total != ''">
+                total = #{total},
+            </if>
+            <if test="do_business != null and do_business != ''">
+                do_business = #{do_business},
+            </if>
+        </set>
+        where id = #{id};
+    </update>
+</mapper>

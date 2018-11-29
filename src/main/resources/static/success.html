@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap-table.js"></script>
+<script type="text/javascript" src="js/bootstrap-table-zh-CN.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<button id="btn_add" type="button" class="btn btn-default">
+    <span aria-hidden="true"></span>新增
+</button>
+
+
+<div class="modal fade" id="new">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> Create a new user</div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">分支机构名称</label>
+                        <div class="col-sm-10">
+                            <input id="name" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">
+                            地址</label>
+                        <div class="col-sm-10">
+                            <input id="address" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="business" class="col-sm-2 control-label">具体业务
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="business" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="level" class="col-sm-2 control-label">员工层级
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="level" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="total" class="col-sm-2 control-label">员工数量
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="total" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="do_business" class="col-sm-2 control-label">营业状态
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="do_business" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit" id="save">Save</button>
+                <!--<button class="btn btn-success" type="submit" id="update">update</button>-->
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="old">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"> Create a new user</div>
+            <form class="form-horizontal">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name1" class="col-sm-2 control-label">分支机构名称</label>
+                        <div class="col-sm-10">
+                            <input id="name1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address1" class="col-sm-2 control-label">
+                            地址</label>
+                        <div class="col-sm-10">
+                            <input id="address1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="business1" class="col-sm-2 control-label">具体业务
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="business1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="level1" class="col-sm-2 control-label">员工层级
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="level1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="total1" class="col-sm-2 control-label">员工数量
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="total1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="do_business1" class="col-sm-2 control-label">营业状态
+                        </label>
+                        <div class="col-sm-10">
+                            <input id="do_business1" type="text" class="form-control list-inline"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit" id="update">update</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<table id="table"></table>
+
+</body>
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#table').bootstrapTable({
+            url: '/allmessage',          //默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
+            method: "post",
+            striped: false,                 //是否显示行间隔色
+            pagination: true,               //分页
+            pageNumber : 1, //初始化加载第一页
+            sidePagination : 'client',//server:服务器端分页|client：前端分页
+            pageSize : 3,//单页记录数
+            // pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
+            cache: false,
+            uniqueId: "id",               //每一行的唯一标识，一般为主键列
+            height: 250,
+            //queryParams: {uuid:uuid}, //查询参数
+            showRefresh: true,
+            columns: [
+                {
+                    title: '序号', field: 'id', width: 50, align: "center", formatter: function (value, row, index) {
+                        return index + 1;
+                    }
+                },
+                {title: '分支机构名称', field: 'name', width: 200},
+                {title: '地址', field: 'address', width: 280},
+                {title: '具体业务', field: 'business', width: 190},
+                {title: '员工层级', field: 'level', width: 100},
+                {title: '员工数量', field: "total", width: 100},
+                {title: '营业状态', field: "do_business", width: 100},
+                {
+                    title: '操作', field: "do_business", width: 100, formatter: function (value, row, index) {
+                        return "<a href='javascript:void(0)' onclick='selectby(\""+row.id+"\")'>修改<a>"
+                    }
+                },
+                {
+                    title: '操作', field: "do_business", width: 100, formatter: function (value, row, index) {
+                        return "<a href='javascript:void(0)' onclick='del (\""+row.id+"\")'>删除<a>"
+                    }
+                }
+
+            ],
+            responseHandler: function (res) { //回调
+                return res.rows;
+            }
+        });
+    });
+    function selectby(id) {
+        $("#old").modal("show");
+        $.ajax({
+            type: "post",
+            async: false,
+            url: "/selectby",
+            contentType: "application/json;charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(id),
+            success:
+                function (result) {
+                    $("#name1").val(result.rows.name);
+                    $("#address1").val(result.rows.address);
+                    $("#business1").val(result.rows.business);
+                    $("#level1").val(result.rows.level);
+                    $("#total1").val(result.rows.total);
+                    $("#do_business1").val(result.rows.do_business);
+                    $("#update").click(function() {
+                        var data = {
+                                    "id": id,
+                                    "name": $("#name1").val(),
+                                    "address": $("#address1").val(),
+                                    "business": $("#business1").val(),
+                                    "level": $("#level1").val(),
+                                    "total": $("#total1").val(),
+                                    "do_business": $("#do_business1").val()
+                                };
+                        $.ajax({
+                            type: "post",
+                            url: "/update",
+                            contentType: "application/json;charset=utf-8",
+                            dataType: 'json',
+                            timeout: 1000,
+                            data: JSON.stringify(data),
+
+                            success:
+                                function (result) {
+                                    console.log("ok");
+                                    //window.location.href = "../success.html";
+                                    window.location.reload();
+                                }
+                        });
+                    })
+                }
+        });
+    }
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#btn_add").click(function () {
+            $("#new").modal("show")
+        });
+
+
+        $("#save").click(function () {
+            var data = {
+                "name": $("#name").val(),
+                "address": $("#address").val(),
+                "business": $("#business").val(),
+                "level": $("#level").val(),
+                "total": $("#total").val(),
+                "do_business": $("#do_business").val()
+            };
+            $.ajax({
+                type: "post",
+                url: "/save",
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                timeout: 1000,
+                data: JSON.stringify(data),
+
+                success:
+                    function (result) {
+                        console.log("ok");
+                        //window.location.href = "../success.html";
+                        window.location.reload();
+                    }
+            });
+        });
+
+
+    })
+</script>
+<script>
+    function del(id) {
+        $.ajax({
+            type: "post",
+            url: "/del",
+            contentType: "application/json;charset=utf-8",
+            // 设置dataType为json则一定需要从后端返回一个json格式 才能够执行成功方法
+            // dataType: 'json',
+            timeout: 1000,
+            data: JSON.stringify(id),
+            success:
+                function (result) {
+                    //window.location.href = "../success.html";
+                    window.location.reload();
+                }
+        });
+    }
+</script>
+</html>

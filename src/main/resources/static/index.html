@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<script type="text/javascript" src="../static/js/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="../static/js/bootstrap-table.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+    <table>
+       <tr>
+           <td>
+               用户名<input type="text" id="username" name="username">
+           </td>
+       </tr>
+        <tr>
+            <td>
+                密码<input type="password" id="password" name="password">
+            </td>
+        </tr>
+        <tr>
+            <td> <a href="javascript:void(0)" id="dr">登陆</a></td>
+        </tr>
+    </table>
+
+<table id="table">
+
+
+</table>
+
+</body>
+<script type="text/javascript">
+    $(function(){
+        $('#dr').click(function () {
+            //console.log("ssss"); 观察是否进入改方法
+            var data= {
+                 "username" : $("#username").val(),
+                 "password" : $("#password").val()
+            };
+            $.ajax({
+                type: "post",
+                url: "/login",
+                contentType: "application/json;charset=utf-8",
+                dataType: 'json',
+                timeout: 1000,
+                data: JSON.stringify(data),
+                success:
+                    function (result) {
+                    console.log("ok");
+                    window.location.href="../success.html";
+                    },
+                error:
+                    function () {
+                        console.log("error");
+                        window.location.href="../fail.html";
+                    }
+            });
+        })
+    });
+</script>
+
+
+</html>
